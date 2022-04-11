@@ -1,5 +1,8 @@
 package com.helmyandrianto.tutorialnotification
 
+import android.app.PendingIntent
+import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
@@ -10,8 +13,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var notificationManager: NotificationManagerCompat
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    companion object{
+        const val EXTRA_MESSAGE = "extra_message"
+    }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -20,13 +26,28 @@ class MainActivity : AppCompatActivity() {
         btnSend1.setOnClickListener {
             val title = etTitle.text.toString()
             val message = etMessage.text.toString()
+
+            val intent = Intent(this, MainActivity::class.java)
+            val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
+            val broadcastIntent = Intent(this, NotificationReceiver::class.java)
+            broadcastIntent.putExtra(EXTRA_MESSAGE, message )
+            val actionIntent = PendingIntent.getBroadcast(this, 0,broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
             val builder = NotificationCompat.Builder(this, BaseApplication.CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_favorite)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                    intent to open apps
+                .setContentIntent(pendingIntent)
+//                    notification gone
+                .setAutoCancel(true)
                 .setSubText("Ini sub text")
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .addAction(R.mipmap.ic_launcher,"Tampilkan pesan", actionIntent)
+                .setOnlyAlertOnce(true)
+                .setColor(Color.GREEN)
 
             val notification = builder.build()
             notificationManager.notify(1, notification)
