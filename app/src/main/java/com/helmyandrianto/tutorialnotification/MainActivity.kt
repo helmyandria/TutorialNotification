@@ -44,7 +44,9 @@ class MainActivity : AppCompatActivity() {
                 .setStyle(
                     NotificationCompat.InboxStyle().addLine("Ini pesan 1").addLine("Ini pesan 2")
                         .addLine("Ini pesan 3").addLine("Ini pesan 4").addLine("Ini pesan 5")
-                        .addLine("Ini pesan 6").addLine("Ini pesan 7").setBigContentTitle("Ini Big Content Title").setSummaryText("Ini Summary Text")
+                        .addLine("Ini pesan 6").addLine("Ini pesan 7")
+                        .setBigContentTitle("Ini Big Content Title")
+                        .setSummaryText("Ini Summary Text")
                 )
 //                    notification gone
                 .setAutoCancel(true)
@@ -65,6 +67,11 @@ class MainActivity : AppCompatActivity() {
                 .setSmallIcon(R.drawable.ic_favorite)
                 .setContentTitle(title)
                 .setContentText(message)
+                .setStyle(
+                    NotificationCompat.BigTextStyle().bigText(getString(R.string.text_dummy))
+                        .setBigContentTitle("Ini Big Content Title")
+                        .setSummaryText("Ini Summary Text")
+                )
                 .setPriority(NotificationCompat.PRIORITY_LOW)
 
             val notification = builder.build()
