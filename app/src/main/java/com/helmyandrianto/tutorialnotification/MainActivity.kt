@@ -2,6 +2,7 @@ package com.helmyandrianto.tutorialnotification
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity() {
 //            broadcastIntent.putExtra(EXTRA_MESSAGE, message )
 //            val actionIntent = PendingIntent.getBroadcast(this, 0,broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
+            val picture = BitmapFactory.decodeResource(resources, R.drawable.soekarno)
+
             val builder = NotificationCompat.Builder(this, BaseApplication.CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_favorite)
                 .setContentTitle(title)
@@ -41,13 +44,20 @@ class MainActivity : AppCompatActivity() {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
 //                    intent to open apps
                 .setContentIntent(pendingIntent)
+//                    # inbox style
+//                .setStyle(
+//                    NotificationCompat.InboxStyle().addLine("Ini pesan 1").addLine("Ini pesan 2")
+//                        .addLine("Ini pesan 3").addLine("Ini pesan 4").addLine("Ini pesan 5")
+//                        .addLine("Ini pesan 6").addLine("Ini pesan 7")
+//                        .setBigContentTitle("Ini Big Content Title")
+//                        .setSummaryText("Ini Summary Text")
+//                )
+
+//                    # big picture style
                 .setStyle(
-                    NotificationCompat.InboxStyle().addLine("Ini pesan 1").addLine("Ini pesan 2")
-                        .addLine("Ini pesan 3").addLine("Ini pesan 4").addLine("Ini pesan 5")
-                        .addLine("Ini pesan 6").addLine("Ini pesan 7")
-                        .setBigContentTitle("Ini Big Content Title")
-                        .setSummaryText("Ini Summary Text")
+                    NotificationCompat.BigPictureStyle().bigLargeIcon(null).bigPicture(picture)
                 )
+
 //                    notification gone
                 .setAutoCancel(true)
 //                .setSubText("Ini sub text")
