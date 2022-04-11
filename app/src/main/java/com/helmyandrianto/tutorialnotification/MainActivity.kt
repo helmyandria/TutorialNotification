@@ -54,10 +54,17 @@ class MainActivity : AppCompatActivity() {
 //                )
 
 //                    # big picture style
-                .setStyle(
-                    NotificationCompat.BigPictureStyle().bigLargeIcon(null).bigPicture(picture)
-                )
+//                .setStyle(
+//                    NotificationCompat.BigPictureStyle().bigLargeIcon(null).bigPicture(picture)
+//                )
 
+//                    # media style
+                .addAction(R.drawable.ic_prev, "Prev", null)
+                .addAction(R.drawable.ic_pause, "Pause", null)
+                .addAction(R.drawable.ic_next, "Next", null)
+                .setStyle(androidx.media.app.NotificationCompat.MediaStyle().setShowActionsInCompactView(0,1,2))
+
+                .setLargeIcon(picture)
 //                    notification gone
                 .setAutoCancel(true)
 //                .setSubText("Ini sub text")
